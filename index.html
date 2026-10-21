@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnSphere | Digital Learning Guide</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="navbar">
+  <a class="brand" href="/"><span class="logo">🎓</span><span>Learn<span>Sphere</span></span></a>
+  <nav>
+    <a class="active" href="/">⌂ Home</a>
+    <a href="/progress">▥ Progress</a>
+    <a href="/company">▣ Company Mode</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-copy">
+    <h1>Welcome to Learn<span>Sphere</span></h1>
+    <p>Learn anything. One search. One learning path.</p>
+    <form method="POST" action="/learning" class="search-card">
+      <div class="search-row">
+        <span class="search-icon">⌕</span>
+        <input name="topic" required placeholder="What do you want to learn?" value="">
+        <button type="submit">Search</button>
+      </div>
+      <div class="levels">
+        <label class="level selected"><input type="radio" name="level" value="Beginner" checked> 🌱 Beginner</label>
+        <label class="level"><input type="radio" name="level" value="Intermediate"> 📘 Intermediate</label>
+        <label class="level"><input type="radio" name="level" value="Advanced"> 🚀 Advanced</label>
+      </div>
+    </form>
+  </div>
+  <div class="hero-art">
+    <div class="laptop">🔐</div>
+    <div class="books">📚</div>
+    <div class="float-text">Learn<br>Practice<br>Grow</div>
+  </div>
+</section>
+
+<section class="features">
+  <div>📖 <b>AI Explanation</b><small>Simple & clear</small></div>
+  <div>▶️ <b>Learning Videos</b><small>Topic related</small></div>
+  <div>🧠 <b>Practice Quiz</b><small>5+ questions</small></div>
+  <div>📊 <b>Track Progress</b><small>See your growth</small></div>
+</section>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

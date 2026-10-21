@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz | {{ topic }}</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+<header class="navbar"><a class="brand" href="/"><span class="logo">🎓</span><span>Learn<span>Sphere</span></span></a><nav><a href="/">⌂ Home</a><a href="/progress">▥ Progress</a></nav></header>
+<main class="quiz-page"><div class="quiz-title"><span>🧠</span><div><h1>{{ topic }} Quiz</h1><p>Answer all {{ questions|length }} questions.</p></div></div>
+<form method="POST" action="/submit_quiz">
+{% for q in questions %}
+<div class="question card"><h2>Question {{ loop.index }}</h2><p>{{ q.question }}</p>
+{% for option in q.options %}<label class="option"><input type="radio" name="q{{ loop.index0 }}" value="{{ option }}" required><span>{{ option }}</span></label>{% endfor %}
+</div>
+{% endfor %}
+<button class="primary-btn submit-btn" type="submit">Submit Quiz →</button>
+</form></main>
+</body></html>

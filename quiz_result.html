@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Result | LearnSphere</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+<header class="navbar"><a class="brand" href="/"><span class="logo">🎓</span><span>Learn<span>Sphere</span></span></a><nav><a href="/">⌂ Home</a><a href="/progress">▥ Progress</a></nav></header>
+<main class="result-page">
+<div class="result card"><div class="result-icon">✓</div><h1>Quiz Completed!</h1><div class="big-score">{{ percentage }}%</div><h2>Score: {{ score }} / {{ total }}</h2><p>Your progress has been updated.</p>
+<div class="result-actions"><a href="/learning" class="primary-btn">Back to Learning</a><a href="/progress" class="secondary-btn">View Progress</a></div></div>
+<div class="card review"><h2>Answer Review</h2>{% for a in answers %}<div class="review-row"><b>{{ loop.index }}. {{ a.question }}</b><span class="{{ 'correct' if a.is_correct else 'wrong' }}">{{ 'Correct' if a.is_correct else 'Incorrect' }}</span>{% if not a.is_correct %}<small>Correct answer: {{ a.correct }}</small>{% endif %}</div>{% endfor %}</div>
+</main></body></html>

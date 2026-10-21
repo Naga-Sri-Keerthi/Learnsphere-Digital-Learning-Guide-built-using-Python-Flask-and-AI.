@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Progress - LearnSphere</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a class="brand" href="/">
+        <span class="logo">🎓</span>
+        <span>Learn<span>Sphere</span></span>
+    </a>
+
+    <nav>
+        <a href="/">⌂ Home</a>
+        <a href="/progress">▥ Progress</a>
+        <a href="/company">▣ Company Mode</a>
+    </nav>
+
+</header>
+
+
+<div class="page-container">
+
+    <div class="progress-header">
+
+        <h1>📊 My Learning Progress</h1>
+
+        <p>
+            Track your quiz scores and learning performance.
+        </p>
+
+    </div>
+
+
+    {% if records %}
+
+        <div class="progress-grid">
+
+            {% for result in records %}
+
+            <div class="progress-card">
+
+                <h2>📚 {{ result["topic"] }}</h2>
+
+
+                <div class="progress-score">
+
+                    <span>
+                        {{ result["quiz_score"] }}/{{ result["quiz_total"] }}
+                    </span>
+
+                    <strong>
+                        {{ result["quiz_percentage"] }}%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        style="width: {{ result['quiz_percentage'] or 0 }}%;">
+                    </div>
+
+                </div>
+
+
+                <div class="progress-info">
+
+                    <p>
+                        <b>Learning Progress:</b>
+                        {{ result["progress"] or 0 }}%
+                    </p>
+
+                    <p>
+                        <b>Status:</b>
+
+                        {% if result["completed"] %}
+                            ✅ Quiz Completed
+                        {% else %}
+                            📖 In Progress
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+
+                {% if result["created_at"] %}
+
+                <small>
+                    Last updated:
+                    {{ result["created_at"] }}
+                </small>
+
+                {% endif %}
+
+
+                <br><br>
+
+                <a
+                    href="{{ url_for('index') }}"
+                    class="primary-btn">
+                    Continue Learning →
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+    {% else %}
+
+        <div class="empty-progress">
+
+            <h2>📚 No Progress Yet</h2>
+
+            <p>
+                Complete a quiz to see your learning progress here.
+            </p>
+
+            <a
+                href="{{ url_for('index') }}"
+                class="primary-btn">
+                Start Learning →
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

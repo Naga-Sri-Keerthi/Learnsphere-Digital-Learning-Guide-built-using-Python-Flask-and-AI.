@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ topic }} | LearnSphere</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header class="navbar">
+
+    <a class="brand" href="/">
+        <span class="logo">🎓</span>
+        <span>Learn<span>Sphere</span></span>
+    </a>
+
+    <nav>
+
+        <a href="/">
+            ⌂ Home
+        </a>
+
+        <a href="/progress">
+            ▥ Progress
+        </a>
+
+        <a href="/company">
+            ▣ Company Mode
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<div class="dashboard">
+
+
+    <!-- =====================================================
+         LEFT SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <a class="side-active" href="#">
+            ⌂ Overview
+        </a>
+
+        <a href="#path">
+            🧭 Learning Path
+        </a>
+
+        <a href="#concepts">
+            💡 Key Concepts
+        </a>
+
+        <a href="#resources">
+            📚 Resources
+        </a>
+
+        <a href="#videos">
+            ▶ Videos
+        </a>
+
+        <a href="#assistant">
+            💬 AI Assistant
+        </a>
+
+        <a href="/quiz">
+            ☑ Quiz
+        </a>
+
+        <a href="/progress">
+            ▥ Progress
+        </a>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- =================================================
+             TOPIC HEADER
+        ================================================== -->
+
+        <section class="topic-header card">
+
+            <div class="topic-icon">
+                🛡️
+            </div>
+
+            <div>
+
+                <h1>
+                    {{ topic }}
+                </h1>
+
+                <p>
+                    Personalized {{ level }} learning guide
+                </p>
+
+            </div>
+
+            <span class="badge">
+                {{ level }}
+            </span>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ABOUT TOPIC
+        ================================================== -->
+
+        <section class="card">
+
+            <h2>
+                📘 About This Topic
+            </h2>
+
+            <p>
+                {{ content.explanation }}
+            </p>
+
+
+            <div class="highlight">
+
+                <h3>
+                    🎯 Key Points
+                </h3>
+
+                <ul>
+
+                    {% for x in content.key_points %}
+
+                    <li>
+                        {{ x }}
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             LEARNING PATH
+        ================================================== -->
+
+        <section id="path" class="card">
+
+            <h2>
+                🧭 Learning Path
+            </h2>
+
+
+            <div class="path">
+
+                {% for x in content.learning_path %}
+
+                <div class="path-step">
+
+                    <span>
+                        {{ loop.index }}
+                    </span>
+
+                    <b>
+                        {{ x }}
+                    </b>
+
+                    {% if not loop.last %}
+
+                    <i>
+                        →
+                    </i>
+
+                    {% endif %}
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             IMPORTANT CONCEPTS + EXAMPLES
+        ================================================== -->
+
+        <section id="concepts" class="grid-two">
+
+
+            <div class="card">
+
+                <h2>
+                    💡 Important Concepts
+                </h2>
+
+                <ul class="clean">
+
+                    {% for x in content.important_concepts %}
+
+                    <li>
+                        {{ x }}
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <h2>
+                    🌍 Real-World Examples
+                </h2>
+
+                <ul class="clean">
+
+                    {% for x in content.real_world_examples %}
+
+                    <li>
+                        {{ x }}
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUICK FACTS
+        ================================================== -->
+
+        <section id="resources" class="card">
+
+            <h2>
+                ✨ Quick Facts
+            </h2>
+
+            <div class="fact-grid">
+
+                {% for x in content.quick_facts %}
+
+                <div>
+                    {{ x }}
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             RECOMMENDED VIDEOS
+        ================================================== -->
+
+        <section id="videos" class="card">
+
+            <h2>
+                ▶ Recommended Videos
+            </h2>
+
+
+            <div class="video-list">
+
+                {% if videos %}
+
+                    {% for v in videos %}
+
+                    <a class="video"
+                       href="{{ v.url }}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+
+                        <span>
+                            ▶
+                        </span>
+
+                        <div>
+
+                            <b>
+                                {{ v.title }}
+                            </b>
+
+                            <small>
+                                {{ v.channel }}
+                            </small>
+
+                        </div>
+
+                    </a>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <p>
+                        No recommended videos available.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             AI ASSISTANT
+        ================================================== -->
+
+        <section id="assistant"
+                 class="card assistant">
+
+            <h2>
+                💬 Ask AI About {{ topic }}
+            </h2>
+
+
+            <div class="ask-row">
+
+                <input
+                    id="aiQuestion"
+                    type="text"
+                    placeholder="Ask a question about this topic..."
+                >
+
+
+                <button
+                    onclick="askAI('{{ topic|e }}')">
+
+                    Ask AI
+
+                </button>
+
+            </div>
+
+
+            <div id="aiAnswer"
+                 class="answer">
+
+                Your answer will appear here.
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUIZ CALLOUT
+        ================================================== -->
+
+        <section class="quiz-callout">
+
+            <div>
+
+                <h2>
+                    Ready for a Quiz?
+                </h2>
+
+                <p>
+                    Test what you've learned with at least
+                    5 questions.
+                </p>
+
+            </div>
+
+
+            <a href="/quiz"
+               class="primary-btn">
+
+                Start Quiz →
+
+            </a>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         RIGHT SIDEBAR
+    ====================================================== -->
+
+    <aside class="rightbar">
+
+
+        <!-- =================================================
+             PROGRESS CARD
+        ================================================== -->
+
+        <div class="card progress-card">
+
+            <h2>
+                Your Progress
+            </h2>
+
+
+            <!-- Progress Ring -->
+
+            <div
+                class="progress-ring"
+                style="--p: {{ progress.progress|default(0) }}%"
+            >
+
+                <span>
+                    {{ progress.progress|default(0) }}%
+                </span>
+
+            </div>
+
+
+            <!-- Quiz Percentage -->
+
+            <p>
+
+                Quiz Score:
+
+                <b>
+                    {{ progress.quiz_percentage|default(0) }}%
+                </b>
+
+            </p>
+
+
+            <!-- Quiz Score -->
+
+            <p>
+
+                Quiz:
+
+                <b>
+
+                    {{ progress.quiz_score|default(0) }}
+
+                    /
+
+                    {{ progress.quiz_total|default(0) }}
+
+                </b>
+
+            </p>
+
+
+            <!-- Completion Status -->
+
+            <p>
+
+                Status:
+
+                {% if progress.completed|default(0) %}
+
+                    <b class="completed">
+                        ✓ Completed
+                    </b>
+
+                {% else %}
+
+                    <b>
+                        Not Completed
+                    </b>
+
+                {% endif %}
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             NEXT STEP
+        ================================================== -->
+
+        <div class="card">
+
+            <h2>
+                Next Step
+            </h2>
+
+
+            {% if progress.completed|default(0) %}
+
+                <p>
+                    You completed this quiz!
+                    You can take it again to improve
+                    your score.
+                </p>
+
+                <a href="/quiz"
+                   class="primary-btn full">
+
+                    Retake Quiz
+
+                </a>
+
+            {% else %}
+
+                <p>
+                    Complete the quiz to update your
+                    progress automatically.
+                </p>
+
+                <a href="/quiz"
+                   class="primary-btn full">
+
+                    Take Quiz
+
+                </a>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- =================================================
+             VIEW ALL PROGRESS
+        ================================================== -->
+
+        <div class="card">
+
+            <h2>
+                📊 Overall Progress
+            </h2>
+
+            <p>
+                View your learning history and quiz
+                performance.
+            </p>
+
+            <a href="/progress"
+               class="primary-btn full">
+
+                View Progress
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+</body>
+
+</html>
